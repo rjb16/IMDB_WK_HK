@@ -41,8 +41,8 @@ class Film
 
     # Trying to show which films a customer has booked to see
     def customers()
-        sql = "SELECT customers.* FROM customers INNER JOIN tickets ON customers.id
-        = tickets.customer_id WHERE film_id = $1"
+        sql = "SELECT customers.* FROM customers INNER JOIN tickets ON ticket.customer_id
+        = customers.id WHERE tickets.film_id = $1"
         values =[@id]
         customer_data = SqlRunner.run(sql, values)
         return Customer.map_items(customer_data)
