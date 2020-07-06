@@ -48,11 +48,11 @@ class Customer
 
     # trying to see which customers are coming to see one film.
     def films()
-        sql = "SELECT films.* FROM films INNER JOIN tickets ON films.id
-        = tickets.film_id WHERE customer_id = $1"
+        sql = "SELECT films.* FROM films INNER JOIN tickets ON tickets.film.id
+        = films.id WHERE tickets.customer_id = $1"
         values =[@id]
         film_data = SqlRunner.run(sql, values)
-        return Customer.map_items(customer_data)
+        return Customer.map_items(film_data)
     end
 
     # Not sure about finding the remaining funds but this is what i tried
