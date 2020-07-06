@@ -54,26 +54,22 @@ class Customer
         film_data = SqlRunner.run(sql, values)
         return Customer.map_items(customer_data)
     end
-    
-    def self.map_items(data)
-        result = data.map{|customer| Customer.new(customer)}
-        return result
-      end
+
+    # Not sure about finding the remaining funds but this is what i tried
+    def remaining_funds()
+        sql = "SELECT SUM(film.price) FROM films
+        INNER JOIN tickets
+        ON tickets.film_id = films.id
+        WHERE film_id = $1"
+        values = [@id]
+        price = SqlRunner.run(sql, values).first['sum'].to_i
+        remaining_finds = @funds.to_i - price
+        return remaining_funds
+    end
 
 
     
-
-
-
-
-
-
-
-
-
-
-
-
+    
 
 
 
